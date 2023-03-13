@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Login</title>
+<div layout:fragment="content">
+    <div class="row col-12">
+        <form method="post" th:action="@{'/enter'}">
+            <div class="col-5 mx-auto mt-4">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.usererror!=null}">
+                    Email or Password entered incorrectly
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <p class="mt-2">Email:</p>
+                <input type="email" placeholder="InsertEmail" class="mt-2 form-control" name="email">
+                <p class="mt-2">Password:</p>
+                <input type="password" placeholder="InsertPassword" class="mt-2 form-control" name="password">
+                <button class="mt-3 btn btn-success">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

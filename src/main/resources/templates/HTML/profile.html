@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Profile</title>
+<div layout:fragment="content">
+    <div class="row col-12">
+        <div class="col-5 mx-auto mt-4">
+            <p class="mt-2">Full Name:</p>
+            <input disabled class="mt-2 form-control" th:value="${#authentication.principal.fullName}">
+            <p class="mt-2">Age:</p>
+            <input disabled class="mt-2 form-control" th:value="${#authentication.principal.age}">
+            <p class="mt-2">Gender:</p>
+            <input disabled class="mt-2 form-control" th:value="${#authentication.principal.gender}">
+            <p class="mt-2">Address:</p>
+            <input disabled class="mt-2 form-control" th:value="${#authentication.principal.address}">
+            <a class="mt-3 btn btn-success" th:href="@{'/'}">Change Profile</a>
+            <a class="mt-3 btn btn-success" th:href="@{'/'}">Change Password</a>
+        </div>
+    </div>
+</div>
+</html>

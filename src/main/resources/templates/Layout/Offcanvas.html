@@ -1,0 +1,17 @@
+<button style="width: 70px" type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+        aria-controls="offcanvasWithBothOptions"><img src="menu.png" style="width: 100%">
+</button>
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+     aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <a sec:authorize="isAnonymous()" th:href="@{'/login'}">Authorize</a>
+        <form method="post" th:action="@{'/to-exit'}">
+            <button class="btn btn-primary" sec:authorize="isAuthenticated()">Logout</button>
+        </form>
+    </div>
+</div>
