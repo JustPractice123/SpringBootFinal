@@ -4,20 +4,25 @@
       layout:decorate="/Layout/MainLayout.html">
 <title layout:fragment="title">Test</title>
 <div layout:fragment="content">
-  <div class="row col-12">
-    <form method="post" th:action="@{'/enter'}">
-      <div class="col-5 mx-auto mt-4">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.usererror!=null}">
-          Email or Password entered incorrectly
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <form method="post" th:action="@{'/test'}">
+        <div class="row col-12" th:each="task:${tasks}">
+
+            <p th:text="'#'+${task.id}"></p>
+            <p th:text="'Балл за задание '+${task.level}"></p>
+            <p th:text="${task.question}"></p>
+            <div>
+                <div th:each="ans:${answers}">
+                    <div th:if="${ans.task.id==task.id && ans.subject.id==subject.id}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:name="${'answer['+task.id+']'}" th:id="${'flexRadioDefault'+ans.id}" th:value="${ans.content}">
+                            <label class="form-check-label" th:for="${'flexRadioDefault'+ans.id}" th:text="${ans.content}">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="mt-2">Email:</p>
-        <input type="email" placeholder="InsertEmail" class="mt-2 form-control" name="email">
-        <p class="mt-2">Password:</p>
-        <input type="password" placeholder="InsertPassword" class="mt-2 form-control" name="password">
-        <button class="mt-3 btn btn-success">Login</button>
-      </div>
+        <button class="btn btn-success">Finish</button>
     </form>
-  </div>
 </div>
 </html>

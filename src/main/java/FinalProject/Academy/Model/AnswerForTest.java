@@ -18,4 +18,6 @@ public class AnswerForTest extends BaseEntity{
     private Boolean status;
     @ManyToOne
     public TestTask task;
+    @ManyToOne
+    public Subject subject;
 }

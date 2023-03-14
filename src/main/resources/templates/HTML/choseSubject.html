@@ -79,10 +79,8 @@
                     <img src="" alt="Avatar" style="width:300px;height:300px;">
                 </div>
                 <div class="flip-card-back">
-                    <h1>John Doe</h1>
-                    <p>Architect & Engineer</p>
-                    <p>We love that guy</p>
-                    <a th:href="@{'test/'+${s.id}}">Перейти к тестированию</a>
+                    <h1 th:text="${s.name}"></h1>
+                    <a th:href="@{'/test/'+${s.id}}">Перейти к тестированию</a>
                 </div>
             </div>
         </div>

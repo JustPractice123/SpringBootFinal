@@ -12,12 +12,12 @@
 <div class="row mt-3">
     <div class="col-11 row">
         <div class="col-10">
-            <a th:href="@{'/'}"><img src="logo.png" style="width: 100px; margin-left: 50px"></a>
+            <a th:href="@{'/'}"><img th:src="@{'/logo.png'}" style="width: 100px; margin-left: 50px"></a>
         </div>
         <div  class="col-2 row">
             <div sec:authorize="isAuthenticated()">
-                <img src="defaultUser.png" style="width: 20px">
-                <a th:href="@{'/profile'}" th:text="${#authentication.principal.fullName}"></a>
+                <img th:src="@{'/defaultUser.png'}" style="width: 20px">
+                <a style="text-decoration: none;" th:href="@{'/profile'}" th:text="${#authentication.principal.fullName}"></a>
             </div>
         </div>
     </div>
