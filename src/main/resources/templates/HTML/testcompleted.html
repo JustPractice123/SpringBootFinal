@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Test</title>
+<div layout:fragment="content">
+    <form method="post" th:action="@{'/testcompleted'}">
+        <div class="row col-12" th:each="task:${tasks}">
+
+            <p th:text="'#'+${task.id}"></p>
+            <p th:text="'Балл за задание '+${task.level}"></p>
+            <p th:text="${task.question}"></p>
+            <div th:each="ans:${answers}">
+                <div th:if="${ans.task.id==task.id && ans.subject.id==subject.id}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" th:name="${task.id}" id="flexRadioDefault1">
+                        <label class="form-check-label" th:for="${task.id}" th:text="${ans.content}">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success">Finish</button>
+    </form>
+</div>
+</html>
