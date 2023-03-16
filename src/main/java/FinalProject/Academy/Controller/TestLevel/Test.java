@@ -27,8 +27,6 @@ public class Test {
     @Autowired
     AnswerService answerService;
     @Autowired
-    UserLvlService userLvlService;
-    @Autowired
     UserService userService;
     @GetMapping(value = "/test/{id}")
     public String testG(@PathVariable(name = "id")Long id,

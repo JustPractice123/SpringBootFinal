@@ -11,9 +11,8 @@
     </div>
     <script type="text/javascript">
         function startTest() {
-            let subjectId=document.getElementById("STestSub");
+            let subjectId=document.getElementById("STestSub").value;
             const req = new XMLHttpRequest();
-            req.open("GET", "/test/api/"+subjectId+"")
             req.onreadystatechange = new function () {
                 if (req.readyState === req.DONE) {
                     if (req.status === 200) {
@@ -29,6 +28,7 @@
                     }
                 }
             }
+            req.open("GET", "/api/test/"+subjectId+"")
             req.send();
         }
     </script>

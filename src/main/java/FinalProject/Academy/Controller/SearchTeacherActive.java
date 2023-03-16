@@ -14,11 +14,12 @@ import java.util.List;
 public class SearchTeacherActive {
     @Autowired
     private UserService userService;
-    @GetMapping(value = "steacher")
-    public String search(@RequestParam(name = "teacher_name")String name,
+    @GetMapping(value = "/steacher")
+    public String search(@RequestParam(name = "teacher_name") String name,
+                         @RequestParam(name = "level") String level,
                          Model model){
-        List<User> teachers=userService.getTeachersByName(name);
+        List<User> teachers=userService.getTeachersByLevelAndFullName(level,name);
         model.addAttribute("teachers", teachers);
-        return "/HTML/searchteacheractive";
+        return "/HTML/searchteacher";
     }
 }

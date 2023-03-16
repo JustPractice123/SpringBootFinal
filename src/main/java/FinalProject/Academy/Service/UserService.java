@@ -76,15 +76,34 @@ public class UserService implements UserDetailsService {
     }
     public List<User> getTeachers(){
         List<User> teachers=userRep.findAllByRole_id(2l);
+        User user=userRep.findUserByRole_id(1l);
+        teachers.remove(user);
         return teachers;
     }
-    public List<User> getTeachersByName(String name){
-        List<User> teachers=userRep.findAllByFullNameContaining(name);
-        for (User u:teachers){
-            if (u.role.size()==2){
-                teachers.remove(u);
-            }
-        }
+    public List<User> getStudents(){
+        List<User> students=userRep.findAllByRole_id(3l);
+        User user=userRep.findUserByRole_id(1l);
+        students.remove(user);
+        return students;
+    }
+    public List<User> getTeachersByLevelAndFullName(String level, String fullName){
+        Long role=2L;
+        List<User> teachers=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_id(level, fullName, role);
+        User user=userRep.findUserByRole_id(1l);
+        teachers.remove(user);
         return teachers;
+    }
+    public List<User> getStudentsByLevelAndFullName(String level, String fullName){
+        Long role=3L;
+        List<User> students=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_id(level,fullName,role);
+        User user=userRep.findUserByRole_id(1l);
+        students.remove(user);
+        return students;
+    }
+    public List<User> getAllUsers(){
+        List<User> users=userRep.findAll();
+        User user=userRep.findUserByRole_id(1L);
+        users.remove(user);
+        return users;
     }
 }

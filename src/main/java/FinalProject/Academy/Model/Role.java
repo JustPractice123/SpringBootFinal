@@ -6,13 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.List;
+
 @Entity
 @Table(name = "role")
 @Setter
 @Getter
 public class Role extends BaseEntity implements GrantedAuthority {
-    private String role;
-    private String name;
+    public String role;
+    public String name;
 
     @Override
     public String getAuthority() {

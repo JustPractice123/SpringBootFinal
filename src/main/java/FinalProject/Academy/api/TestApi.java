@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "test/api/{sub-id}")
+@RequestMapping(value = "api/test/{sub-id}")
 public class TestApi {
     @Autowired
     private SubjectService subjectService;

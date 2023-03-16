@@ -8,17 +8,38 @@
     <div class="row col-12">
         <div class="col-5 mx-auto">
             <div class="col-12 mx-auto">
-                <form th:action="@{'/steacher'}" method="get">
+                <form th:action="@{'/steacher'}" method="get" role="search">
                     <div class="input-group">
                         <input type="search" class="form-control" placeholder="Search" name="teacher_name">
-                        <button class="btn btn-outline-secondary" type="button">&#10148;</button>
                     </div>
+                    <a href="JavaScript:void(0)" onclick="openDetails()">Выбрать уровень</a>
+                    <div id="detailSearch">
+                    </div>
+                    <button class="btn btn-outline-secondary">Search</button>
+                    <script type="text/javascript">
+                        function openDetails() {
+                            let HTMCode = "";
+                            HTMCode += "<div class='row col-12 mt-2'> "
+                            HTMCode += "<select name='level' class='form-control'> "
+                            HTMCode += "<option value='Jun'>Начальный</option> "
+                            HTMCode += "<option value='Medium'>Средний</option> "
+                            HTMCode += "<option value='Hard'>Продвинутый</option> "
+                            HTMCode += "</select> "
+                            HTMCode += "</div> "
+                            HTMCode += "<a href='JavaScript:void(0)' onclick='closeDetails()'>Закрыть</a>"
+                            document.getElementById("detailSearch").innerHTML = HTMCode;
+                        }
+                        function closeDetails(){
+                            document.getElementById("detailSearch").innerHTML="";
+                        }
+                    </script>
                 </form>
             </div>
             <div class="col-12 mx-auto mt-3">
                 <div th:each="teacher:${teachers}">
                     <p th:text="${teacher.fullName}"></p>
                     <p th:text="${teacher.age}"></p>
+                    <p th:text="${teacher.userLevel.lvl}"></p>
                     <a th:href="@{'/profile/'+${teacher.id}}">Профиль</a>
                 </div>
             </div>

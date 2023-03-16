@@ -30,6 +30,10 @@ public class User extends BaseEntity implements UserDetails {
     public List<Role> role;
     @ManyToMany(fetch = FetchType.EAGER)
     public List<User> users;
+    @ManyToOne
+    public UserLevel userLevel;
+    @ManyToOne
+    public Subject subject;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;

@@ -14,6 +14,4 @@ import lombok.Setter;
 public class Subject extends BaseEntity{
     @Column(name = "name")
     private String name;
-    @ManyToOne
-    public User user;
 }

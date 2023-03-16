@@ -11,6 +11,6 @@ import lombok.Setter;
 public class UserLevel extends BaseEntity{
     @Column(name = "score")
     private Integer score;
-    @OneToOne
-    public User user;
+    @Column(name = "lvl")
+    private  String lvl;
 }

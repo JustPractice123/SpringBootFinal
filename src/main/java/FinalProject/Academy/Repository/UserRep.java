@@ -13,5 +13,6 @@ public interface UserRep extends JpaRepository<User,Long> {
     User findUserByEmail(String email);
     User findUserById(Long id);
     List<User> findAllByRole_id(Long id);
-    List<User> findAllByFullNameContaining(String name);
+    User findUserByRole_id(Long id);
+    List<User> findAllByUserLevel_LvlAndFullNameContainingAndRole_id(String level,String fullName, Long id);
 }
