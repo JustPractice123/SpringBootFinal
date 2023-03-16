@@ -4,25 +4,33 @@
       layout:decorate="/Layout/MainLayout.html">
 <title layout:fragment="title">Test</title>
 <div layout:fragment="content">
-    <form method="post" th:action="@{'/test'}">
-        <div class="row col-12" th:each="task:${tasks}">
-
-            <p th:text="'#'+${task.id}"></p>
-            <p th:text="'Балл за задание '+${task.level}"></p>
-            <p th:text="${task.question}"></p>
-            <div>
-                <div th:each="ans:${answers}">
-                    <div th:if="${ans.task.id==task.id && ans.subject.id==subject.id}">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" th:name="${'answer['+task.id+']'}" th:id="${'flexRadioDefault'+ans.id}" th:value="${ans.content}">
-                            <label class="form-check-label" th:for="${'flexRadioDefault'+ans.id}" th:text="${ans.content}">
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-success">Finish</button>
-    </form>
+    <div id="starttest">
+        <input type="hidden" id = "STestSub" th:value="${subject.id}">
+        <p>Время выполнения тестирования 30 мин</p>
+        <a href="JavaScript:void(0)" class="btn btn-dark" onclick="startTest()">Начать тестирование</a>
+    </div>
+    <script type="text/javascript">
+        function startTest() {
+            let subjectId=document.getElementById("STestSub");
+            const req = new XMLHttpRequest();
+            req.open("GET", "/test/api/"+subjectId+"")
+            req.onreadystatechange = new function () {
+                if (req.readyState === req.DONE) {
+                    if (req.status === 200) {
+                        let lists=JSON.parse(req.responseText);
+                        let htmlCode = "";
+                        htmlCode+="<div>"+lists.subject.name+"</div>";
+                        htmlCode+="<div>"+lists.tasks[0].question+"</div>";
+                        for (let i=0;i<lists.answers.length;i++){
+                            htmlCode+=lists.answers[i].content;
+                        }
+                        htmlCode+=<button onclick="startTest()">Далее</button>
+                        document.getElementById("starttest").innerHTML=htmlCode;
+                    }
+                }
+            }
+            req.send();
+        }
+    </script>
 </div>
 </html>

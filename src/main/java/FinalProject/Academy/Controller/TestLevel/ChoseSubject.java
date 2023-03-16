@@ -1,7 +1,7 @@
 package FinalProject.Academy.Controller.TestLevel;
 
-import FinalProject.Academy.Model.Subject;
 import FinalProject.Academy.Service.SubjectService;
+import FinalProject.Academy.dto.SubjectDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ public class ChoseSubject {
     SubjectService subjectService;
     @GetMapping(value = "/choseSubject")
     public String choseSubject(Model model){
-        List<Subject> subjects=subjectService.getSubjects();
+        List<SubjectDTO> subjects=subjectService.getSubjects();
         model.addAttribute("subject", subjects);
         return "/HTML/choseSubject";
     }

@@ -2,6 +2,8 @@ package FinalProject.Academy.Service;
 
 import FinalProject.Academy.Model.Subject;
 import FinalProject.Academy.Repository.SubjectRep;
+import FinalProject.Academy.dto.SubjectDTO;
+import FinalProject.Academy.map.SubjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +17,16 @@ import java.util.List;
 public class SubjectService {
     @Autowired
     SubjectRep subjectRep;
+    @Autowired
+    SubjectMapper subjectMapper;
 
-    public Subject getSubjectById(Long id) {
+    public SubjectDTO getSubjectById(Long id) {
         Subject subject = subjectRep.getSubjectById(id);
-        return subject;
+        return subjectMapper.toDto(subject);
     }
 
-    public List<Subject> getSubjects() {
+    public List<SubjectDTO> getSubjects() {
         List<Subject> subjects=subjectRep.findAll();
-        return subjects;
+        return subjectMapper.toDtoList(subjects);
     }
 }

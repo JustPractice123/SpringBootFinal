@@ -5,15 +5,16 @@
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
      aria-labelledby="offcanvasWithBothOptionsLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">BIG Science</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <a sec:authorize="isAnonymous()" th:href="@{'/login'}">Authorize</a>
-        <a th:href="@{'/aboutus'}">About us</a>
-        <a sec:authorize="isAuthenticated()"  th:href="@{'/searchteacher'}">Search Teacher</a>
+        <a sec:authorize="isAnonymous()" th:href="@{'/login'}">Авторизоваться</a>
+        <a th:href="@{'/aboutus'}">О Нас</a>
+        <a sec:authorize="isAuthenticated()"  th:href="@{'/searchteacher'}">Найти преподавателя</a>
+        <a class="btn btn-dark" sec:authorize="isAuthenticated()" th:href="@{'/choseSubject'}">Записаться на новый предмет</a>
         <form method="post" th:action="@{'/to-exit'}">
-            <button class="btn btn-dark" sec:authorize="isAuthenticated()">Logout</button>
+            <button class="btn btn-dark" sec:authorize="isAuthenticated()">Выйти</button>
         </form>
     </div>
 </div>

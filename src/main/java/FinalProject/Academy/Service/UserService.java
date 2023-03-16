@@ -51,6 +51,7 @@ public class UserService implements UserDetailsService {
         return result;
     }
     public User getUserById(Long id){
+
         return userRep.findUserById(id);
     }
     public User getCurrentUser(){
@@ -75,6 +76,15 @@ public class UserService implements UserDetailsService {
     }
     public List<User> getTeachers(){
         List<User> teachers=userRep.findAllByRole_id(2l);
+        return teachers;
+    }
+    public List<User> getTeachersByName(String name){
+        List<User> teachers=userRep.findAllByFullNameContaining(name);
+        for (User u:teachers){
+            if (u.role.size()==2){
+                teachers.remove(u);
+            }
+        }
         return teachers;
     }
 }

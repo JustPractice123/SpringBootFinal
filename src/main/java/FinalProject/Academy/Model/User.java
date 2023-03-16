@@ -27,7 +27,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "address")
     private String address;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> role;
+    public List<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    public List<User> users;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;

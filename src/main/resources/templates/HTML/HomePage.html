@@ -5,7 +5,22 @@
       layout:decorate="/Layout/MainLayout.html">
 <title layout:fragment="title">HomePage</title>
 <div layout:fragment="content">
-    <a sec:authorize="isAnonymous()" th:href="@{'/registration'}">Записаться</a>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/choseSubject'}">Записаться</a>
+    <div class="row col-12">
+        <div class="col-7">
+            <div class="col-12 mx-auto text-center mt-3">
+                <h3>Подготовка к ЕНТ в Алматы</h3>
+                <p>Пройди полноценную подготовку в ???<br>
+                    и получи грант с вероятностью 94%</p>
+                <a class="btn btn-dark" sec:authorize="isAnonymous()" th:href="@{'/registration'}">Записаться</a>
+                <a class="btn btn-dark" sec:authorize="isAuthenticated()" th:href="@{'/choseSubject'}">Записаться</a>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="row col-12">
+                <img id="bottom" th:src="@{'/main.gif'}" style="width: 50%">
+            </div>
+        </div>
+    </div>
+
 </div>
 </html>

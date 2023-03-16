@@ -2,6 +2,8 @@ package FinalProject.Academy.Service;
 
 import FinalProject.Academy.Model.TestTask;
 import FinalProject.Academy.Repository.TaskRep;
+import FinalProject.Academy.dto.TaskDTO;
+import FinalProject.Academy.map.TaskMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,15 @@ import java.util.List;
 public class TaskService {
     @Autowired
     TaskRep taskRep;
-    public List<TestTask> getTasksBySubjectId(Long id){
+    @Autowired
+    TaskMapper taskMapper;
+    public List<TaskDTO> getTasksBySubjectId(Long id){
         List<TestTask> tasks=taskRep.findAllBySubject_id(id);
-        return tasks;
+        List<TaskDTO> taskDTOS=taskMapper.toDtoList(tasks);
+        return taskDTOS;
+    }
+    public TaskDTO getTaskById(Long id){
+        TestTask task=taskRep.findById(id).orElseThrow();
+        return taskMapper.toDTO(task);
     }
 }
