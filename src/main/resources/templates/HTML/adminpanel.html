@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Login</title>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="col-8 mx-auto mt-4">
+                <a th:href="@{'/changeroleuser'}">Изменить роль пользователя</a>
+                <a class="mt-2" th:href="@{'/'}">Заблокировать пользователя</a>
+                <a class="mt-2" th:href="@{'/deleteacc'}">Удалить акаунт пользователя</a>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -100,10 +100,22 @@ public class UserService implements UserDetailsService {
         students.remove(user);
         return students;
     }
+    public List<User> getStudentsByFullName(String fullName){
+        Long role=3L;
+        List<User> students=userRep.findAllByFullNameContainingAndRole_id(fullName,role);
+        return students;
+    }
     public List<User> getAllUsers(){
         List<User> users=userRep.findAll();
         User user=userRep.findUserByRole_id(1L);
         users.remove(user);
         return users;
+    }
+    public void save(User user){
+        userRep.save(user);
+    }
+    public void deleteUser(Long id){
+        User user=userRep.findUserById(id);
+        userRep.delete(user);
     }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Delete Acc</title>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="col-8 mx-auto">
+                <div th:each="user:${allUsers}">
+                    <form method="post" th:action="@{'/deleteacc'}">
+                        <div class="col-5">
+                            <input type="hidden" name="userid" th:value="${user.id}">
+                            <div class="col-6">
+                                <input type="text" class="form-control mt-1" disabled th:value="${user.fullName}">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control mt-1" disabled th:value="${user.email}">
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <button class="btn btn-dark mt-2">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
