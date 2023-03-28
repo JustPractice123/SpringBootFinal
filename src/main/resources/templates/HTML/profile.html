@@ -7,23 +7,42 @@
 <div layout:fragment="content">
     <div class="row col-12">
         <div class="col-5 mx-auto mt-4">
-            <p class="mt-2">Full Name:</p>
+            <div class="row col-3">
+                <div class="card">
+                    <img th:src="@{'/UsersAvatars/'+${#authentication.principal.id}+'.jpg'}" class="card-img-top w-100">
+                    <div class="card-body">
+                        <form th:action="@{'/static/uploadphoto'}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" name="user_avatar">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="btn btn-dark">Загрузить фото</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-2">Ф.И.О. :</p>
             <input disabled class="mt-2 form-control" th:value="${user.fullName}">
-            <p class="mt-2">Age:</p>
+            <p class="mt-2">Возраст :</p>
             <input disabled class="mt-2 form-control" th:value="${user.age}">
-            <p class="mt-2">Gender:</p>
+            <p class="mt-2">Пол :</p>
             <input disabled class="mt-2 form-control" th:value="${user.gender}">
-            <p class="mt-2">Address:</p>
+            <p class="mt-2">Адрес :</p>
             <input disabled class="mt-2 form-control" th:value="${user.address}">
             <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <p class="mt-2">Role:</p>
+                <p class="mt-2">Роль :</p>
                 <div class="col-4">
                     <input disabled class="mt-2 form-control" th:each="role:${user.role}" th:value="${role.name}">
                 </div>
             </div>
             <div th:if="${user.id==#authentication.principal.id}">
-            <a class="mt-3 btn btn-dark" th:href="@{'/changeprofile'}">Change Profile</a>
-            <a class="mt-3 btn btn-dark" th:href="@{'/changepassword'}">Change Password</a>
+            <a class="mt-3 btn btn-dark" th:href="@{'/changeprofile'}">Изменить данные</a>
+            <a class="mt-3 btn btn-dark" th:href="@{'/changepassword'}">Изменить пароль</a>
             </div>
         </div>
     </div>

@@ -29,6 +29,8 @@ public class Registration {
             redirect="redirect:/registration?insertUncorrectData";
         }else if (result.equals(Boolean.TRUE)){
             redirect="redirect:/login";
+        }else if (result.equals(Boolean.FALSE)){
+            redirect="redirect:/registration?insertUncorrectData";
         }
         return redirect;
     }

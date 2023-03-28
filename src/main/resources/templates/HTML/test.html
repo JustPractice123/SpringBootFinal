@@ -4,33 +4,54 @@
       layout:decorate="/Layout/MainLayout.html">
 <title layout:fragment="title">Test</title>
 <div layout:fragment="content">
-    <div id="starttest">
+    <div id="start">
         <input type="hidden" id = "STestSub" th:value="${subject.id}">
         <p>Время выполнения тестирования 30 мин</p>
         <a href="JavaScript:void(0)" class="btn btn-dark" onclick="startTest()">Начать тестирование</a>
     </div>
     <script type="text/javascript">
+        let subjectId=document.getElementById("STestSub").value;
         function startTest() {
-            let subjectId=document.getElementById("STestSub").value;
             const req = new XMLHttpRequest();
-            req.onreadystatechange = new function () {
+            req.onreadystatechange = function () {
                 if (req.readyState === req.DONE) {
                     if (req.status === 200) {
                         let lists=JSON.parse(req.responseText);
                         let htmlCode = "";
-                        htmlCode+="<div>"+lists.subject.name+"</div>";
-                        htmlCode+="<div>"+lists.tasks[0].question+"</div>";
-                        for (let i=0;i<lists.answers.length;i++){
-                            htmlCode+=lists.answers[i].content;
+                        htmlCode+="<p>"+lists.subject.name+"</p>";
+                        for (let i=0;i<lists.tasks.length;i++){
+                            htmlCode+="<p>"+lists.tasks[i].question+"</p>";
+                            for (let j=0;j<lists.answers.length;j++){
+                                if (lists.answers[j].task.id==lists.tasks[i].id){
+                                    htmlCode+='<div class="form-check">';
+                                    htmlCode+='<input className="form-check-input" type="radio" ' +
+                                        'name="flexRadioDefault" id="flexRadioDefault1">';
+                                    htmlCode+='<label className="form-check-label" ' +
+                                        'htmlFor="flexRadioDefault1">'+lists.answers[j].content+'</label>';
+                                    htmlCode+="</div>";
+                                    htmlCode+="<button type='btn btn-dark' onclick='finishTest()'>Закончить</button>"
+                                }
+                            }
                         }
-                        htmlCode+=<button onclick="startTest()">Далее</button>
-                        document.getElementById("starttest").innerHTML=htmlCode;
+                        document.getElementById('start').innerHTML=htmlCode;
                     }
                 }
             }
-            req.open("GET", "/api/test/"+subjectId+"")
+            req.open("GET", "/api/test/"+subjectId+"");
             req.send();
         }
+        function finishTest(){
+            const req=new XMLHttpRequest();
+            req.onreadystatechange=function (){
+                if (req.readyState===req.DONE){
+                    if (req.status===200){
+
+                    }
+                }
+            }
+            req.open("POST", "/api/test/"+subjectId+"");
+            req.send("")
+        };
     </script>
 </div>
 </html>

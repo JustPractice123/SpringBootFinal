@@ -1,5 +1,6 @@
 package FinalProject.Academy.Service;
 
+import FinalProject.Academy.Model.Deleted;
 import FinalProject.Academy.Model.Role;
 import FinalProject.Academy.Model.User;
 import FinalProject.Academy.Repository.RoleRep;
@@ -23,6 +24,8 @@ public class UserService implements UserDetailsService {
     RoleRep roleRep;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    DeletedService deletedService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRep.findUserByEmail(username);
@@ -31,8 +34,9 @@ public class UserService implements UserDetailsService {
     }
     public Boolean addUser(String email, String password, String fullName, String gender, Integer age, String address){
         User user=userRep.findUserByEmail(email);
+        Deleted deleted=deletedService.getBannedUser(email);
         Boolean result=Boolean.FALSE;
-        if (user==null){
+        if (user==null && deleted==null){
             List<Role> roles=new ArrayList<>();
             Role role=roleRep.getReferenceById(3L);
             roles.add(role);

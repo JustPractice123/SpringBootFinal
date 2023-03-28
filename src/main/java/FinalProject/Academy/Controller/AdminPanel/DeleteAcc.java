@@ -1,6 +1,7 @@
 package FinalProject.Academy.Controller.AdminPanel;
 
 import FinalProject.Academy.Model.User;
+import FinalProject.Academy.Service.DeletedService;
 import FinalProject.Academy.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.util.List;
 public class DeleteAcc {
     @Autowired
     private UserService userService;
+    @Autowired
+    private DeletedService deletedService;
     @GetMapping(value = "/deleteacc")
     public String deleteacc(Model model){
         List<User> allUsers=userService.getAllUsers();
@@ -23,6 +26,8 @@ public class DeleteAcc {
     }
     @PostMapping(value = "/deleteacc")
     public String deleteaccp(@RequestParam(name = "userid")Long id){
+        User user=userService.getUserById(id);
+        deletedService.addToBanList(user.getEmail());
         userService.deleteUser(id);
         return "redirect:/deleteacc";
     }

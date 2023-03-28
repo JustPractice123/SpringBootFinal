@@ -1,17 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/Layout/MainLayout.html">
-<title layout:fragment="title">Login</title>
-<div layout:fragment="content">
-    <div class="row">
-        <div class="col-12">
-            <div class="col-8 mx-auto mt-4">
-                <a th:href="@{'/changeroleuser'}">Изменить роль пользователя</a>
-                <a class="mt-2" th:href="@{'/'}">Заблокировать пользователя</a>
-                <a class="mt-2" th:href="@{'/deleteacc'}">Удалить акаунт пользователя</a>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель Админа</title>
+    <link type="text/css" rel="stylesheet" th:href="@{'/css/bootstrap.css'}">
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+    </style>
+</head>
+<body style="background-image: url('/Lovepik_com-401878677-science-and-technology-line-background.png');
+        background-size: 100%; ">
+<div class="row mt-3">
+    <div class="col-11 row">
+        <div class="col-10">
+            <a th:href="@{'/'}"><img th:src="@{'/logo.png'}" style="width: 100px; margin-left: 25px"></a>
+        </div>
+        <div class="col-2 row">
+            <div sec:authorize="isAuthenticated()">
+                <img th:src="@{'/defaultUser.png'}" style="width: 20px">
+                <a style="text-decoration: none;" th:href="@{'/profile'}"
+                   th:text="${#authentication.principal.fullName}"></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-1" th:insert="~{'/Layout/Offcanvas.html'}"></div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="col-7 mx-auto" style="display:flex; flex-wrap: wrap; justify-content: space-between">
+            <div class="card" style="width: 300px">
+                <img class="mt-2 mx-auto" th:src="@{'/changerole.png'}" alt="Avatar" style="width:90%; height: 200px">
+                <div class="container text-center mt-2">
+                    <h6><b><a th:href="@{'/changeroleuser'}">Изменить роль пользователя</a></b></h6>
+                </div>
+            </div>
+            <div class="card" style="width: 300px">
+                <img class="mt-2 mx-auto" th:src="@{'/deleteuser.png'}" alt="Avatar" style="width:90%;height: 200px">
+                <div class="container text-center mt-2">
+                    <h6><b><a class="mt-2" th:href="@{'/deleteacc'}">Удалить акаунт пользователя</a></b></h6>
+                </div>
+            </div>
+            <div class="card" style="width: 300px">
+                <img class="mt-2 mx-auto" th:src="@{'/unbanuser.png'}" alt="Avatar" style="width:90%;height: 200px">
+                <div class="container text-center mt-2">
+                    <h6><b><a class="mt-2" th:href="@{'/deleteduser'}">Разблокировать пользователя</a></b></h6>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
+</body>
 </html>
