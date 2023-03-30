@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Unban user</title>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="col-8 mx-auto">
+                <div th:each="user:${users}">
+                    <form method="post" th:action="@{'/deleteduser'}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="col-5 mx-auto">
+                                    <input type="text" class="form-control mt-2" disabled name="email" th:value="${user.getEmail()}">
+                                    <button class="btn btn-dark mt-3">Unban</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
