@@ -11,6 +11,7 @@
     </div>
     <script type="text/javascript">
         let subjectId=document.getElementById("STestSub").value;
+        let numberTask=0;
         function startTest() {
             const req = new XMLHttpRequest();
             req.onreadystatechange = function () {
@@ -19,20 +20,21 @@
                         let lists=JSON.parse(req.responseText);
                         let htmlCode = "";
                         htmlCode+="<p>"+lists.subject.name+"</p>";
-                        for (let i=0;i<lists.tasks.length;i++){
-                            htmlCode+="<p>"+lists.tasks[i].question+"</p>";
-                            for (let j=0;j<lists.answers.length;j++){
-                                if (lists.answers[j].task.id==lists.tasks[i].id){
-                                    htmlCode+='<div class="form-check">';
-                                    htmlCode+='<input className="form-check-input" type="radio" ' +
-                                        'name="flexRadioDefault" id="flexRadioDefault1">';
-                                    htmlCode+='<label className="form-check-label" ' +
-                                        'htmlFor="flexRadioDefault1">'+lists.answers[j].content+'</label>';
-                                    htmlCode+="</div>";
-                                    htmlCode+="<button type='btn btn-dark' onclick='finishTest()'>Закончить</button>"
-                                }
+                        htmlCode+="<p>"+lists.tasks[numberTask].question+"</p>";
+                        for (let j=0;j<lists.answers.length;j++){
+                            if (lists.answers[j].task.id===lists.tasks[numberTask].id){
+                                htmlCode+='<div class="form-check">';
+                                htmlCode+='<input class="form-check-input" onclick="addAnswer('+lists.subject.id+',' +
+                                    ''+lists.tasks[numberTask].id+','+lists.answers[j].id+')" type="radio" ' +
+                                    'name="'+lists.answers[numberTask].id+'" id="'+lists.answers[j].id+'">';
+                                htmlCode+='<label class="form-check-label" ' +
+                                    'htmlFor="'+lists.answers[j].id+'">'+lists.answers[j].content+'</label>';
+                                htmlCode+="</div>";
                             }
                         }
+                        htmlCode+="<button class='btn btn-dark' onclick='backQuestion()'>Предыдущий</button>"
+                        htmlCode+="<button class='btn btn-dark' onclick='nextQuestion()'>Следующий</button>"
+                        htmlCode+="<button class='btn btn-dark' onclick='finishTest()'>Закончить</button>"
                         document.getElementById('start').innerHTML=htmlCode;
                     }
                 }
@@ -40,7 +42,25 @@
             req.open("GET", "/api/test/"+subjectId+"");
             req.send();
         }
-        function finishTest(){
+        function nextQuestion(){
+            if (numberTask<2){
+                numberTask+=1;
+                startTest()
+            }else if (numberTask===2){
+                numberTask=0;
+                startTest()
+            }
+        }
+        function backQuestion(){
+            if (numberTask<=2 && numberTask!=0){
+                numberTask-=1;
+                startTest()
+            }else if (numberTask===0){
+                numberTask=2;
+                startTest()
+            }
+        }
+        function addAnswer(subjID,taskID,answerID){
             const req=new XMLHttpRequest();
             req.onreadystatechange=function (){
                 if (req.readyState===req.DONE){
@@ -49,7 +69,9 @@
                     }
                 }
             }
+            let jsonBody={"answer":answerID,"task":taskID,"subject":subjID};
             req.open("POST", "/api/test/"+subjectId+"");
+            req.getResponseHeader("Content-Type","application/json;charset=UTF-8");
             req.send("")
         };
     </script>

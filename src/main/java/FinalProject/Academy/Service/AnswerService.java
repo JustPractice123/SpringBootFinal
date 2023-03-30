@@ -19,6 +19,9 @@ public class AnswerService {
         List<AnswerDTO> answerDTOS=answerMapper.toDtoList(answerRep.findAll());
         return answerDTOS;
     }
+    public AnswerDTO getAnswerById(Long id){
+        return answerMapper.toDto(answerRep.findById(id).orElseThrow());
+    }
     public List<AnswerDTO> getAnswersBySubjectId(Long id){
         List<AnswerDTO> answerDTOS=answerMapper.toDtoList(answerRep.getAnswerForTestBySubject_Id(id));
         return answerDTOS;

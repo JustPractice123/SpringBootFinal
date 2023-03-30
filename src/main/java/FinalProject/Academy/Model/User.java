@@ -3,6 +3,7 @@ package FinalProject.Academy.Model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.mapstruct.control.MappingControl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,11 +32,11 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     public List<Role> role;
     @ManyToMany(fetch = FetchType.EAGER)
-    public List<User> users;
+    private List<User> users;
     @ManyToOne
-    public UserLevel userLevel;
+    private UserLevel userLevel;
     @ManyToOne
-    public Subject subject;
+    private Subject subject;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;
