@@ -1,10 +1,10 @@
 package FinalProject.Academy.Service;
 
-import FinalProject.Academy.Model.Deleted;
-import FinalProject.Academy.Model.Role;
-import FinalProject.Academy.Model.User;
+import FinalProject.Academy.Model.*;
 import FinalProject.Academy.Repository.RoleRep;
+import FinalProject.Academy.Repository.UserLvlRep;
 import FinalProject.Academy.Repository.UserRep;
+import FinalProject.Academy.map.AnswerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +26,14 @@ public class UserService implements UserDetailsService {
     PasswordEncoder passwordEncoder;
     @Autowired
     DeletedService deletedService;
+    @Autowired
+    UserAnswerService userAnswerService;
+    @Autowired
+    AnswerService answerService;
+    @Autowired
+    AnswerMapper answerMapper;
+    @Autowired
+    UserLvlRep userLvlRep;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRep.findUserByEmail(username);
@@ -121,5 +129,39 @@ public class UserService implements UserDetailsService {
     public void deleteUser(Long id){
         User user=userRep.findUserById(id);
         userRep.delete(user);
+    }
+    public void setUserLevel(Long answer_id){
+        AnswerForTest answer= answerMapper.toEntity(answerService.getAnswerById(answer_id));
+        List<UserAnswerForTest> list=userAnswerService.
+                getAnswersByUser_id(getCurrentUser().getId(),answer.subject.getId());
+        Integer all=0;
+        for (UserAnswerForTest u:list){
+            if (u.getTask().getLevel()==1){
+                Boolean x=u.getAnswer().getStatus();
+                if (x==Boolean.TRUE){
+                    all+=1;
+                }
+            }else if (u.getTask().getLevel()==2){
+                Boolean x=u.getAnswer().getStatus();
+                if (x==Boolean.TRUE){
+                    all+=2;
+                }
+            }else if (u.getTask().getLevel()==3){
+                Boolean x=u.getAnswer().getStatus();
+                if (x==Boolean.TRUE){
+                    all+=3;
+                }
+            }
+        }
+        User user=getCurrentUser();
+        user.setScore(all);
+        if (all>=10){
+            user.setUserLevel(userLvlRep.findById(3l).orElseThrow());
+        }else if (all<10 && all>=5){
+            user.setUserLevel(userLvlRep.findById(2l).orElseThrow());
+        }else if (all<5){
+            user.setUserLevel(userLvlRep.findById(1l).orElseThrow());
+        }
+        userRep.save(user);
     }
 }

@@ -24,8 +24,7 @@
                         for (let j=0;j<lists.answers.length;j++){
                             if (lists.answers[j].task.id===lists.tasks[numberTask].id){
                                 htmlCode+='<div class="form-check">';
-                                htmlCode+='<input class="form-check-input" onclick="addAnswer('+lists.subject.id+',' +
-                                    ''+lists.tasks[numberTask].id+','+lists.answers[j].id+')" type="radio" ' +
+                                htmlCode+='<input class="form-check-input" onclick="addAnswer('+lists.answers[j].id+')" type="radio" ' +
                                     'name="'+lists.answers[numberTask].id+'" id="'+lists.answers[j].id+'">';
                                 htmlCode+='<label class="form-check-label" ' +
                                     'htmlFor="'+lists.answers[j].id+'">'+lists.answers[j].content+'</label>';
@@ -34,7 +33,7 @@
                         }
                         htmlCode+="<button class='btn btn-dark' onclick='backQuestion()'>Предыдущий</button>"
                         htmlCode+="<button class='btn btn-dark' onclick='nextQuestion()'>Следующий</button>"
-                        htmlCode+="<button class='btn btn-dark' onclick='finishTest()'>Закончить</button>"
+                        htmlCode+="<a class='btn btn-dark' th:href='@{'/finishTest'}'>Закончить</a>"
                         document.getElementById('start').innerHTML=htmlCode;
                     }
                 }
@@ -43,24 +42,24 @@
             req.send();
         }
         function nextQuestion(){
-            if (numberTask<2){
+            if (numberTask<5){
                 numberTask+=1;
                 startTest()
-            }else if (numberTask===2){
+            }else if (numberTask===5){
                 numberTask=0;
                 startTest()
             }
         }
         function backQuestion(){
-            if (numberTask<=2 && numberTask!=0){
+            if (numberTask<=5 && numberTask!=0){
                 numberTask-=1;
                 startTest()
             }else if (numberTask===0){
-                numberTask=2;
+                numberTask=5;
                 startTest()
             }
         }
-        function addAnswer(subjID,taskID,answerID){
+        function addAnswer(answerID){
             const req=new XMLHttpRequest();
             req.onreadystatechange=function (){
                 if (req.readyState===req.DONE){
@@ -69,10 +68,10 @@
                     }
                 }
             }
-            let jsonBody={"answer":answerID,"task":taskID,"subject":subjID};
+            let jsonBody={"id":answerID};
             req.open("POST", "/api/test/"+subjectId+"");
-            req.getResponseHeader("Content-Type","application/json;charset=UTF-8");
-            req.send("")
+            req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+            req.send(JSON.stringify(jsonBody))
         };
     </script>
 </div>

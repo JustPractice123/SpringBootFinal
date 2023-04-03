@@ -27,6 +27,8 @@ public class User extends BaseEntity implements UserDetails {
     private String gender;
     @Column(name = "address")
     private String address;
+    @Column(name = "score")
+    private Integer score;
     @Column(name = "picture")
     private String picture;
     @ManyToMany(fetch = FetchType.EAGER)

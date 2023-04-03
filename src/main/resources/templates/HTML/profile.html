@@ -11,7 +11,7 @@
                 <div class="card">
                     <img th:src="@{'/UsersAvatars/'+${#authentication.principal.id}+'.jpg'}" class="card-img-top w-100">
                     <div class="card-body">
-                        <form th:action="@{'/static/uploadphoto'}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{'/uploadphoto'}" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="input-group mb-3">
                                     <input type="file" class="form-control" name="user_avatar">

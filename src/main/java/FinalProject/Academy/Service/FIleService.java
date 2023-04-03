@@ -21,7 +21,8 @@ public class FIleService {
         if (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png")){
             try {
                 byte bytes[]=file.getBytes();
-                String fileName= DigestUtils.sha1Hex(userService.getCurrentUser().getId()+"");
+//                String fileName= DigestUtils.sha1Hex(userService.getCurrentUser().getId()+"");
+                String fileName = userService.getCurrentUser().getId()+"";
                 String filePath="build/resources/main/static/UsersAvatars/" +fileName+ ".jpg";
                 Path path= Paths.get(filePath);
                 Files.write(path,bytes);
