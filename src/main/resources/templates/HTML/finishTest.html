@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Profile</title>
+<div layout:fragment="content">
+    <div class="row col-7 mx-auto mt-4">
+        <p>Поздравляем <label th:text="${user.fullName}"></label> вы успешно прошли тестирование</p>
+        <p>Ваш балл составил <label th:text="${user.getScore()}"></label></p>
+        <p>Ваш уровень <label th:text="${user.getUserLevel().getLvl()}"></label></p>
+    </div>
+</div>
+</html>
