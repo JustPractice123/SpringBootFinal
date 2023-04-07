@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">My Massage</title>
+<div layout:fragment="content">
+    <div id="message">
+    </div>
+    <script type="text/javascript">
+        allChat();
+        function allChat(){
+            const req=new XMLHttpRequest();
+            req.onreadystatechange=function (){
+                if (req.readyState===req.DONE){
+                    if (req.status===200){
+                        let list=JSON.parse(req.responseText);
+                        let htmlCode="";
+                        htmlCode+="<div class='row col-7 mx-auto mt-2' style='background-color: #dddae2 ; " +
+                            " height: 700px; display: flex; flex-wrap: wrap; border: 1px solid seashell'>"
+                        htmlCode+="<div style='width: 300px;height: 700px; border: 1px solid seashell;" +
+                            " display: flex; flex-wrap: wrap'>"
+                        for (let i=0;i<list.length;i++){
+                            htmlCode+="<div style='width: 300px; height: 70px; border: 1px solid seashell'>"
+                            htmlCode+="<p>"+list[i].fullName+"</p>"
+                            htmlCode+="</div>"
+                        }
+                        htmlCode+="</div>"
+                        htmlCode+="</div>"
+                        document.getElementById("message").innerHTML=htmlCode;
+                    }
+                }
+            }
+            req.open("GET","/api/chat");
+            req.send();
+        }
+    </script>
+</div>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">My Teacher</title>
+<div layout:fragment="content">
+    <div class="row col-7 mx-auto">
+        <div class="mt-2 col-12">
+            <div th:if="${children==null}">
+                <p>У вас нету активных Учеников. Найти Учеников <label><a th:href="@{'/sstudents'}">тут</a></label></p>
+            </div>
+            <div th:each="t: ${teachers}">
+                <p th:text="${c.user.fullName}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

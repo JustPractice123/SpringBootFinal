@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">My Children</title>
+<div layout:fragment="content">
+    <div class="row col-7 mx-auto">
+        <div class="mt-2 col-12">
+            <div th:if="${children==null}">
+                <p>У вас нету активных запросов.</p>
+            </div>
+            <div th:each="c: ${children}">
+                <p th:text="${c.user.fullName}"></p>
+                <form th:action="@{'/addRequest'}" method="post">
+                    <input type="hidden" th:value="${c.user.id}" name="id_a">
+                    <button>Одобрить</button>
+                </form>
+                <form th:action="@{'/deleteRequest'}" method="post">
+                    <input type="hidden" th:value="${c.user.id}" name="id_d">
+                    <button>Отклонить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
