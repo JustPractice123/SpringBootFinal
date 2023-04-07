@@ -6,34 +6,39 @@
 <div layout:fragment="content">
     <div id="start">
         <input type="hidden" id = "STestSub" th:value="${subject.id}">
-        <p>Время выполнения тестирования 30 мин</p>
-        <a href="JavaScript:void(0)" class="btn btn-dark" onclick="startTest()">Начать тестирование</a>
+        <div class="row col-4 mx-auto">
+            <p>Время выполнения тестирования 30 мин</p>
+            <a href="JavaScript:void(0)" class="btn btn-dark" onclick="startTest()">Начать тестирование</a>
+        </div>
     </div>
     <script type="text/javascript">
         let subjectId=document.getElementById("STestSub").value;
         let numberTask=0;
         function startTest() {
             const req = new XMLHttpRequest();
+            let number=numberTask+1;
             req.onreadystatechange = function () {
                 if (req.readyState === req.DONE) {
                     if (req.status === 200) {
                         let lists=JSON.parse(req.responseText);
                         let htmlCode = "";
-                        htmlCode+="<p>"+lists.subject.name+"</p>";
-                        htmlCode+="<p>"+lists.tasks[numberTask].question+"</p>";
+                        htmlCode+="<div class='row col-5 mx-auto mt-4' style='background-color: #75727a'>"
+                        htmlCode+="<p class='mt-2' style='margin-left: 10px'>"+lists.subject.name+"</p>";
+                        htmlCode+="<p class='mt-1 mb-2' style='margin-left: 10px'>"+number+". "+lists.tasks[numberTask].question+"</p>";
                         for (let j=0;j<lists.answers.length;j++){
                             if (lists.answers[j].task.id===lists.tasks[numberTask].id){
                                 htmlCode+='<div class="form-check">';
                                 htmlCode+='<input class="form-check-input" onclick="addAnswer('+lists.answers[j].id+')" type="radio" ' +
-                                    'name="'+lists.answers[numberTask].id+'" id="'+lists.answers[j].id+'">';
+                                    'name="'+lists.answers[numberTask].id+'" id="'+lists.answers[j].id+'" style="margin-left: 2px">';
                                 htmlCode+='<label class="form-check-label" ' +
-                                    'htmlFor="'+lists.answers[j].id+'">'+lists.answers[j].content+'</label>';
+                                    'htmlFor="'+lists.answers[j].id+'" style="margin-left: 2px">'+lists.answers[j].content+'</label>';
                                 htmlCode+="</div>";
                             }
                         }
-                        htmlCode+="<button class='btn btn-dark' onclick='backQuestion()'>Предыдущий</button>"
-                        htmlCode+="<button class='btn btn-dark' onclick='nextQuestion()'>Следующий</button>"
-                        htmlCode+="<a class='btn btn-dark' th:href='@{'/finishTest'}'>Закончить</a>"
+                        htmlCode+="<button class='btn btn-dark' onclick='backQuestion()'><<Предыдущий</button>"
+                        htmlCode+="<button class='btn btn-dark' onclick='nextQuestion()'>Следующий>></button>"
+                        htmlCode+="<a class='btn btn-dark' th:href='@{'+"+'/finishTest'+"+'}'>Закончить</a>"
+                        htmlCode+="</div>"
                         document.getElementById('start').innerHTML=htmlCode;
                     }
                 }

@@ -41,8 +41,19 @@
                 </div>
             </div>
             <div th:if="${user.id==#authentication.principal.id}">
-            <a class="mt-3 btn btn-dark" th:href="@{'/changeprofile'}">Изменить данные</a>
-            <a class="mt-3 btn btn-dark" th:href="@{'/changepassword'}">Изменить пароль</a>
+                <a class="mt-3 btn btn-dark" th:href="@{'/changeprofile'}">Изменить данные</a>
+                <a class="mt-3 btn btn-dark" th:href="@{'/changepassword'}">Изменить пароль</a>
+            </div>
+            <div th:if="${user.id!=#authentication.principal.id}">
+                <div th:if="${boolean==true}">
+                    <form th:action="@{'/addUserToTeach'}" method="post">
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <button class="mt-3 btn btn-dark">Запрос на обучение</button>
+                    </form>
+                </div>
+                <div th:if="${boolean==false}">
+                    <button disabled class="mt-3 btn btn-dark">Запрос на обучение</button>
+                </div>
             </div>
         </div>
     </div>

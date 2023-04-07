@@ -24,7 +24,7 @@
             text-align: center;
             transition: transform 0.6s;
             transform-style: preserve-3d;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         }
 
         .flip-card:hover .flip-card-inner {
@@ -69,18 +69,21 @@
 </div>
 <div class="row col-12">
     <div class="col-5 mx-auto mt-4">
-        <p>Выполните входное тестирование для определения вашего нынешнего уровня знаний.</p>
-        <p>Выберите предмет на который желалете записаться :</p>
+        <p style="margin-left: 15px">Выполните входное тестирование для определения вашего нынешнего уровня знаний.</p>
+        <p style="margin-left: 15px">Выберите предмет на который желалете записаться :</p>
     </div>
-    <div th:each="s: ${subject}" class="m-2">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <img src="" alt="Avatar" style="width:300px;height:300px;">
-                </div>
-                <div class="flip-card-back">
-                    <h1 th:text="${s.name}"></h1>
-                    <a th:href="@{'test/'+${s.id}}">Перейти к тестированию</a>
+    <br>
+    <div class="row col-7 mx-auto" style="justify-content: space-between">
+        <div th:each="s: ${subject}" class="m-2">
+            <div class="flip-card" style="width: 400px">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="" alt="Avatar" style="width:300px;height:300px;">
+                    </div>
+                    <div class="flip-card-back">
+                        <h1 th:text="${s.name}"></h1>
+                        <a th:href="@{'test/'+${s.id}}">Перейти к тестированию</a>
+                    </div>
                 </div>
             </div>
         </div>

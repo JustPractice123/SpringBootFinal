@@ -21,8 +21,23 @@
             </tr>
             <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
+                       th:href="@{'/myTeacher'}" style="text-decoration: none;"
+                       class="mt-3">Мои преподаватели</a></td>
+            </tr>
+            <tr>
+                <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
                        th:href="@{'/searchteacher'}" style="text-decoration: none;"
                        class="mt-3">Найти преподавателя</a></td>
+            </tr>
+            <tr>
+                <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
+                       th:href="@{'/newRequests'}" style="text-decoration: none;"
+                       class="mt-3">Уведомления</a></td>
+            </tr>
+            <tr>
+                <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
+                       th:href="@{'/myChildren'}" style="text-decoration: none;"
+                       class="mt-3">Мои Учениики</a></td>
             </tr>
             <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
@@ -33,6 +48,11 @@
                 <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
                        th:href="@{'/choseSubject'}" style="text-decoration: none;"
                        class="mt-3">Записаться на новый предмет</a></td>
+            </tr>
+            <tr>
+                <td><a sec:authorize="isAuthenticated()"
+                       th:href="@{'/chat'}" style="text-decoration: none;"
+                       class="mt-3">Мои сообщения</a></td>
             </tr>
             <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
