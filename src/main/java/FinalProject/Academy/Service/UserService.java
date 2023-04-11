@@ -117,6 +117,11 @@ public class UserService implements UserDetailsService {
         List<User> students=userRep.findAllByFullNameContainingAndRole_id(fullName,role);
         return students;
     }
+    public List<User> getStudentsByLevel(String lvl){
+        Long role=3L;
+        List<User> students=userRep.findAllByUserLevelContainingAndRole_id(lvl,role);
+        return students;
+    }
     public List<User> getAllUsers(){
         List<User> users=userRep.findAll();
         User user=userRep.findUserByRole_id(1L);

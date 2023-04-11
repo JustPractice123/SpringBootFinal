@@ -12,7 +12,7 @@
             </div>
             <div th:each="c: ${children}">
                 <p th:text="${c.user.fullName}"></p>
-                <a th:href="@{'/'}"></a>
+                <a th:href="@{'/chat/'+${c.id}}">Написать сообщение</a>
             </div>
         </div>
     </div>

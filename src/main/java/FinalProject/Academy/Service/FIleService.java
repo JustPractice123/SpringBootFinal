@@ -1,5 +1,7 @@
 package FinalProject.Academy.Service;
 
+import FinalProject.Academy.Model.User;
+import FinalProject.Academy.Repository.UserRep;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,15 +19,19 @@ import java.nio.file.Paths;
 public class FIleService {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRep userRep;
     public boolean uploadAvatar(MultipartFile file){
         if (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png")){
             try {
                 byte bytes[]=file.getBytes();
-//                String fileName= DigestUtils.sha1Hex(userService.getCurrentUser().getId()+"");
-                String fileName = userService.getCurrentUser().getId()+"";
+                User user= userService.getCurrentUser();
+                String fileName= DigestUtils.sha1Hex(user.getId()+"");
                 String filePath="build/resources/main/static/UsersAvatars/" +fileName+ ".jpg";
                 Path path= Paths.get(filePath);
                 Files.write(path,bytes);
+                user.setPicture(fileName);
+                userRep.save(user);
                 return true;
             }catch (Exception e){
                 e.printStackTrace();

@@ -16,7 +16,8 @@
         </div>
         <div  class="col-2 row">
             <div sec:authorize="isAuthenticated()">
-                <img th:src="@{'/defaultUser.png'}" style="width: 20px">
+                <img th:if="${#authentication.principal.picture==null}" th:src="@{'/defaultUser.png'}" style="width: 20px; border-radius: 50%">
+                <img th:if="${#authentication.principal.picture!=null}" th:src="@{'/UsersAvatars/'+${#authentication.principal.picture}+'.jpg'}" style="width: 20px; border-radius: 50%">
                 <a style="text-decoration: none;" th:href="@{'/profile'}" th:text="${#authentication.principal.fullName}"></a>
             </div>
         </div>

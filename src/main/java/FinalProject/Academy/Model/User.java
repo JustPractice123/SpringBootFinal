@@ -35,6 +35,8 @@ public class User extends BaseEntity implements UserDetails {
     public List<Role> role;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Children> children;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Teacher> teacher;
     @ManyToOne
     private UserLevel userLevel;
     @ManyToOne

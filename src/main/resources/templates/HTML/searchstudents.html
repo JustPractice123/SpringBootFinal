@@ -7,40 +7,41 @@
 <div layout:fragment="content">
     <div class="row col-12">
         <div class="col-5 mx-auto">
-            <div class="col-12 mx-auto">
-                <form th:action="@{'/sstudents'}" method="get" role="search">
+            <div class="row col-12 mx-auto">
+                <form th:action="@{'/sstudents'}" method="GET" role="search">
                     <div class="input-group">
                         <input type="search" class="form-control" placeholder="Search" name="student_name">
+                        <button class="btn btn-dark">Search</button>
                     </div>
-                    <a href="JavaScript:void(0)" onclick="openDetails()">Выбрать уровень</a>
-                    <div id="detailSearch">
+                    <div class="row col-12 mt-2 mx-auto">
+                        <select name="level" class="form-control">
+                            <option selected value="Jun">Начальный</option>
+                            <option value="Medium">Средний</option>
+                            <option value="Hard">Продвинутый</option>
+                        </select>
                     </div>
-                    <button class="btn btn-outline-secondary">Search</button>
-                    <script type="text/javascript">
-                        function openDetails() {
-                            let HTMCode = "";
-                            HTMCode += "<div class='row col-12 mt-2'> "
-                            HTMCode += "<select name='level' class='form-control'> "
-                            HTMCode += "<option value='Jun'>Начальный</option> "
-                            HTMCode += "<option value='Medium'>Средний</option> "
-                            HTMCode += "<option value='Hard'>Продвинутый</option> "
-                            HTMCode += "</select> "
-                            HTMCode += "</div> "
-                            HTMCode += "<a href='JavaScript:void(0)' onclick='closeDetails()'>Закрыть</a>"
-                            document.getElementById("detailSearch").innerHTML = HTMCode;
-                        }
-                        function closeDetails(){
-                            document.getElementById("detailSearch").innerHTML="";
-                        }
-                    </script>
                 </form>
             </div>
             <div class="col-12 mx-auto mt-3">
                 <div th:each="student:${students}">
-                    <p th:text="${student.fullName}"></p>
-                    <p th:text="${student.age}"></p>
-                    <p th:text="${student.userLevel.lvl}"></p>
-                    <a th:href="@{'/profile/'+${student.id}}">Профиль</a>
+                    <div class="row col-12 h-50 mt-4" style="background-color: #afacb4; border-radius: 5px;
+                    -webkit-box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24);
+                    -moz-box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24);
+                    box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24); margin-left: 1px">
+                        <div class="col-2" style="margin-top: 8px">
+                            <img th:if="${student.picture==null}" th:src="@{'/defaultUser.png'}" height="100px">
+                            <img th:if="${student.picture!=null}" th:src="@{'/UsersAvatars/'+${student.picture}+'.jpg'}"
+                                 height="100px">
+                        </div>
+                        <div class="col-8">
+                            <p th:text="'Имя: '+${student.fullName}"></p>
+                            <p th:text="'Возраст: '+${student.age}"></p>
+                            <p th:text="'Уровень: '+${student.userLevel.lvl}"></p>
+                        </div>
+                        <div class="col-2 mt-4">
+                            <a class="btn btn-dark" th:href="@{'/profile/'+${student.id}}" style="margin-top: 15px">Профиль</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

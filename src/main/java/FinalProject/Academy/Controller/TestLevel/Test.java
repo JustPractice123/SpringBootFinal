@@ -8,6 +8,7 @@ import FinalProject.Academy.dto.AnswerDTO;
 import FinalProject.Academy.dto.SubjectDTO;
 import FinalProject.Academy.dto.TaskDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class Test {
     AnswerService answerService;
     @Autowired
     UserService userService;
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/test/{id}")
     public String testG(@PathVariable(name = "id")Long id,
                         Model model){

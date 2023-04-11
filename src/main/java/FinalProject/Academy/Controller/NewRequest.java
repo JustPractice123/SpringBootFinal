@@ -1,6 +1,9 @@
 package FinalProject.Academy.Controller;
 
 import FinalProject.Academy.Model.Children;
+import FinalProject.Academy.Model.Role;
+import FinalProject.Academy.Model.Teacher;
+import FinalProject.Academy.Model.User;
 import FinalProject.Academy.Service.ChildrenService;
 import FinalProject.Academy.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,8 @@ public class NewRequest {
     private ChildrenService childrenService;
     @GetMapping(value = "/newRequests")
     public String getNews(Model model){
-        List<Children> list=userService.getCurrentUser().getChildren();
+        User user= userService.getUserById(userService.getCurrentUser().getId());
+        List<Children> list=user.getChildren();
         List<Children> children=new ArrayList<>();
         for (Children c:list){
             if (!c.isStatus()){
@@ -41,8 +45,8 @@ public class NewRequest {
     @PostMapping(value = "/deleteRequest")
     public String delete(@RequestParam(name = "id_d")Long id){
         Children children=childrenService.getByUserId(id);
-        userService.getCurrentUser().getChildren().remove(children);
-        userService.save(userService.getCurrentUser());
+        userService.getUserById(userService.getCurrentUser().getId()).getChildren().remove(children);
+        userService.save(userService.getUserById(userService.getCurrentUser().getId()));
         childrenService.deleteChildren(children.getId());
         return "redirect:/newRequests";
     }

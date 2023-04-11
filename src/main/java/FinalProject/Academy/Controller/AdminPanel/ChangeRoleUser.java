@@ -5,6 +5,7 @@ import FinalProject.Academy.Model.User;
 import FinalProject.Academy.Service.RoleService;
 import FinalProject.Academy.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +21,14 @@ public class ChangeRoleUser {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/changeroleuser")
     public String changeroleuser(Model model){
         List<User> allUsers=userService.getAllUsers();
         model.addAttribute("allUsers",allUsers);
         return "/HTML/changerole";
     }
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/changeroleuser")
     public String changeroleuserp(@RequestParam(name = "userid")Long id,
                                   @RequestParam(name = "roleid")Long role){

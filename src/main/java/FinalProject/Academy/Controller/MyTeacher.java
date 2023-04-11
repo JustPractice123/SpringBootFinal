@@ -4,6 +4,7 @@ import FinalProject.Academy.Model.Children;
 import FinalProject.Academy.Model.User;
 import FinalProject.Academy.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 public class MyTeacher {
     @Autowired
     private UserService userService;
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     @GetMapping(value = "/myTeacher")
     public String getMyTeacher(Model model){
         User user=userService.getCurrentUser();
@@ -22,7 +24,7 @@ public class MyTeacher {
         List<User> teachers=new ArrayList<>();
         for(User u:users){
             for(Children c:u.getChildren()){
-                if (c.getUser().equals(user) && c.isStatus()){
+                if (c.getUser().getId()==user.getId()){
                     teachers.add(u);
                 }
             }

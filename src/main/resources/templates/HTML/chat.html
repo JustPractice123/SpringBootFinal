@@ -6,24 +6,33 @@
 <title layout:fragment="title">My Massage</title>
 <div layout:fragment="content">
     <div id="message">
+        <input type="hidden" th:value="${user.id}" id="user">
+    </div>
+    <div class="row col-5 mx-auto">
+        <input type="text" id="mess">
+        <button onclick="sendMessage()">Отправить</button>
     </div>
     <script type="text/javascript">
-        allChat();
-        function allChat(){
+        let privateUserId=document.getElementById("user").value;
+        privateChat();
+        setInterval(privateChat,1000);
+        function privateChat(){
             const req=new XMLHttpRequest();
             req.onreadystatechange=function (){
                 if (req.readyState===req.DONE){
                     if (req.status===200){
                         let list=JSON.parse(req.responseText);
                         let htmlCode="";
-                        htmlCode+="<div class='row col-7 mx-auto mt-2' style='background-color: #dddae2 ; " +
-                            " height: 700px; display: flex; flex-wrap: wrap; border: 1px solid seashell'>"
-                        htmlCode+="<div style='width: 300px;height: 700px; border: 1px solid seashell;" +
-                            " display: flex; flex-wrap: wrap'>"
-                        for (let i=0;i<list.length;i++){
-                            htmlCode+="<div style='width: 300px; height: 70px; border: 1px solid seashell'>"
-                            htmlCode+="<p>"+list[i].fullName+"</p>"
-                            htmlCode+="</div>"
+                        htmlCode+="<div class='row col-5 mx-auto mt-2' style='background-color: #dddae2 ; " +
+                            " height: 700px;'>"
+                        htmlCode+="<a href='/profile/"+list.user.id+"' style='margin-left: 10px;margin-top: 5px; text-decoration: none;'>"+list.user.fullName+"</a>"
+                        htmlCode+="<div style='width: 90%; height: 500px;border: 1px solid black; margin-top: 50px; margin-left: 5%'>"
+                        for (let i=0;i<list.allMessage.length;i++){
+                            if (list.allMessage[i].fromuser.id==privateUserId){
+                                htmlCode+="<p style='margin-left: 5%'>"+list.allMessage[i].message+"</p>"
+                            }else {
+                                htmlCode+="<p style='margin-left: 80%'>"+list.allMessage[i].message+"</p>"
+                            }
                         }
                         htmlCode+="</div>"
                         htmlCode+="</div>"
@@ -31,8 +40,23 @@
                     }
                 }
             }
-            req.open("GET","/api/chat");
+            req.open("GET","/api/chat/"+privateUserId+"");
             req.send();
+        }
+        function sendMessage(){
+            const req=new XMLHttpRequest();
+            let mess=document.getElementById("mess").value;
+            req.onreadystatechange=function (){
+                if (req.readyState===req.DONE){
+                    if (req.status===200){
+                        privateChat();
+                    }
+                }
+            }
+            let jsonBody={"message":mess,"touser":{"id":privateUserId}}
+            req.open("POST","/api/chat/"+privateUserId+"");
+            req.setRequestHeader("Content-Type","application/json;charset=UTF-8");
+            req.send(JSON.stringify(jsonBody));
         }
     </script>
 </div>

@@ -17,7 +17,9 @@
                        style="text-decoration: none;" class="mt-3">Авторизоваться</a></td>
             </tr>
             <tr>
-                <td><a th:href="@{'/aboutus'}" style="text-decoration: none;" class="mt-3">О Нас</a></td>
+                <td><a sec:authorize="isAuthenticated()"
+                       th:href="@{'/profile'}" style="text-decoration: none;"
+                       class="mt-3">Мой профиль</a></td>
             </tr>
             <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
@@ -28,6 +30,11 @@
                 <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
                        th:href="@{'/searchteacher'}" style="text-decoration: none;"
                        class="mt-3">Найти преподавателя</a></td>
+            </tr>
+            <tr>
+                <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
+                       th:href="@{'/newRequestsForStud'}" style="text-decoration: none;"
+                       class="mt-3">Уведомления</a></td>
             </tr>
             <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
@@ -50,14 +57,12 @@
                        class="mt-3">Записаться на новый предмет</a></td>
             </tr>
             <tr>
-                <td><a sec:authorize="isAuthenticated()"
-                       th:href="@{'/chat'}" style="text-decoration: none;"
-                       class="mt-3">Мои сообщения</a></td>
-            </tr>
-            <tr>
                 <td><a sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
                        th:href="@{'/adminpanel'}" style="text-decoration: none;"
                        class="mt-3">Панель Админа</a></td>
+            </tr>
+            <tr>
+                <td><a th:href="@{'/aboutus'}" style="text-decoration: none;" class="mt-3">О Нас</a></td>
             </tr>
             <tr>
                 <td>

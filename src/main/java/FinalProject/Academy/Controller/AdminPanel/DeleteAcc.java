@@ -4,6 +4,7 @@ import FinalProject.Academy.Model.User;
 import FinalProject.Academy.Service.DeletedService;
 import FinalProject.Academy.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class DeleteAcc {
     private UserService userService;
     @Autowired
     private DeletedService deletedService;
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/deleteacc")
     public String deleteacc(Model model){
         List<User> allUsers=userService.getAllUsers();

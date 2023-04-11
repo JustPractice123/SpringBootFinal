@@ -16,8 +16,8 @@ import java.util.List;
 public class DeletedService {
     @Autowired
     private DeletedRep deletedRep;
-    public void unBanned(String email){
-        Deleted deleted=deletedRep.findByEmail(email);
+    public void unBanned(Long id){
+        Deleted deleted=deletedRep.findById(id).orElseThrow();
         deletedRep.delete(deleted);
     }
     public void addToBanList(String email){

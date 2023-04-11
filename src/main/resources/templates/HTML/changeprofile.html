@@ -8,26 +8,26 @@
     <form th:action="${'/changeprofile'}" method="post">
         <div class="row col-12">
             <div class="col-6 mx-auto mt-4 row">
-                <input type="hidden" th:value="${#authentication.principal.id}" name="id">
+                <input type="hidden" th:value="${user.id}" name="id">
                 <div class="col-6">
                     <p class="mt-2">И.Ф.О. :</p>
-                    <input type="text" class="mt-2 form-control" name="fullName" th:value="${#authentication.principal.fullName}">
+                    <input type="text" class="mt-2 form-control" name="fullName" th:value="${user.fullName}">
                 </div>
                 <div class="col-6">
                     <p class="mt-2">Пол :</p>
                     <select class="mt-2 form-control" name="gender">
-                        <option th:selected="${#authentication.principal.gender==Male}" value="Male">Male</option>
-                        <option th:selected="${#authentication.principal.gender==Female}" value="Female">Female</option>
+                        <option th:selected="${user.gender==Male}" value="Male">Male</option>
+                        <option th:selected="${user.gender==Female}" value="Female">Female</option>
                     </select>
                 </div>
                 <div class="col-6">
                     <p class="mt-2">Возраст :</p>
-                    <input type="text" class="mt-2 form-control" name="age" th:value="${#authentication.principal.age}">
+                    <input type="text" class="mt-2 form-control" name="age" th:value="${user.age}">
                 </div>
                 <div class="col-6">
                     <p class="mt-2">Адрес:</p>
                     <input type="text" class="mt-2 form-control" name="address"
-                           th:value="${#authentication.principal.address}">
+                           th:value="${user.address}">
                 </div>
                 <button class="mt-3 btn btn-dark">Изменить</button>
             </div>
