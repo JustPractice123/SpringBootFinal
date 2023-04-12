@@ -32,13 +32,13 @@
                        class="mt-3">Найти преподавателя</a></td>
             </tr>
             <tr>
-                <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
-                       th:href="@{'/newRequestsForStud'}" style="text-decoration: none;"
+                <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
+                       th:href="@{'/newRequests'}" style="text-decoration: none;"
                        class="mt-3">Уведомления</a></td>
             </tr>
             <tr>
-                <td><a sec:authorize="hasAnyAuthority('ROLE_TEACHER')"
-                       th:href="@{'/newRequests'}" style="text-decoration: none;"
+                <td><a sec:authorize="hasAnyAuthority('ROLE_USER')"
+                       th:href="@{'/newRequestsForStud'}" style="text-decoration: none;"
                        class="mt-3">Уведомления</a></td>
             </tr>
             <tr>

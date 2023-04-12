@@ -13,12 +13,23 @@
                         <input type="search" class="form-control" placeholder="Search" name="student_name">
                         <button class="btn btn-dark">Search</button>
                     </div>
-                    <div class="row col-12 mt-2 mx-auto">
-                        <select name="level" class="form-control">
-                            <option selected value="Jun">Начальный</option>
-                            <option value="Medium">Средний</option>
-                            <option value="Hard">Продвинутый</option>
-                        </select>
+                    <div class="row col-12" style="margin-left: 2px">
+                        <div class="col-6 mt-2 mx-auto">
+                            <select name="level" class="form-control">
+                                <option selected value="Jun">Начальный</option>
+                                <option value="Medium">Средний</option>
+                                <option value="Hard">Продвинутый</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mt-2 mx-auto">
+                            <select name="subject" class="form-control">
+                                <option selected value="Math">Математика</option>
+                                <option value="Physics">Физика</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-2" style="margin-left: 2px">
+                        <a class="btn btn-dark" th:href="@{'/searchstudents'}">Показать всех</a>
                     </div>
                 </form>
             </div>

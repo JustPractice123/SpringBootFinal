@@ -36,6 +36,14 @@
                 <input disabled class="mt-2 form-control" th:value="${user.gender}">
                 <p class="mt-2">Адрес :</p>
                 <input disabled class="mt-2 form-control" th:value="${user.address}">
+                <div th:if="${user.subject!=null}">
+                    <p class="mt-2">Предмет :</p>
+                    <input disabled class="mt-2 form-control" th:value="${user.subject.name}">
+                </div>
+                <div th:if="${user.userLevel!=null}">
+                    <p class="mt-2">Уровень :</p>
+                    <input disabled class="mt-2 form-control" th:value="${user.userLevel.lvl}">
+                </div>
                 <div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                     <p class="mt-2">Роль :</p>
                     <div class="col-4">

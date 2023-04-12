@@ -19,24 +19,10 @@ public class SearchChildActive {
     @GetMapping(value = "/sstudents")
     public String search(@RequestParam(name = "student_name") String name,
                          @RequestParam(name = "level") String level,
+                         @RequestParam(name = "subject") String subject,
                          Model model){
-        if (name==null && level==null){
-            List<User> users=userService.getStudents();
-            model.addAttribute("students",users);
-            return "/HTML/searchstudents";
-        }else if (level==null && name!=null){
-            List<User> studentswithoutlevel=userService.getStudentsByFullName(name);
-            model.addAttribute("students",studentswithoutlevel);
-            return "/HTML/searchstudents";
-        }else if (level!=null && name!=null){
-        List<User> students=userService.getStudentsByLevelAndFullName(level,name);
+        List<User> students=userService.getStudentsByLevelAndFullName(level,name,subject);
         model.addAttribute("students", students);
         return "/HTML/searchstudents";
-        }else if (level!=null && name==null){
-            List<User> studentsWithoutname=userService.getStudentsByLevel(level);
-            model.addAttribute("students",studentsWithoutname );
-            return "/HTML/searchstudents";
-        }
-        return "/HTML/delaultErrorPage";
     }
 }

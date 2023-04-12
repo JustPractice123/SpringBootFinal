@@ -37,7 +37,7 @@
                         }
                         htmlCode+="<button class='btn btn-dark' onclick='backQuestion()'><<Предыдущий</button>"
                         htmlCode+="<button class='btn btn-dark' onclick='nextQuestion()'>Следующий>></button>"
-                        htmlCode+="<a class='btn btn-dark' th:href='@{'+"+'/finishTest'+"+'}'>Закончить</a>"
+                        htmlCode+="<a class='btn btn-dark' href='/testcompleted/+"+lists.subject.id+"'>Закончить</a>"
                         htmlCode+="</div>"
                         document.getElementById('start').innerHTML=htmlCode;
                     }

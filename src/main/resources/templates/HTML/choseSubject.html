@@ -62,7 +62,7 @@
             <div sec:authorize="isAuthenticated()">
                 <img th:if="${#authentication.principal.picture==null}" th:src="@{'/defaultUser.png'}" style="width: 20px; border-radius: 50%">
                 <img th:if="${#authentication.principal.picture!=null}" th:src="@{'/UsersAvatars/'+${#authentication.principal.picture}+'.jpg'}" style="width: 20px; border-radius: 50%">
-                <a th:href="@{'/profile'}" th:text="${#authentication.principal.fullName}"></a>
+                <a th:href="@{'/profile'}" th:text="${#authentication.principal.fullName}" style="text-decoration: none"></a>
             </div>
         </div>
     </div>

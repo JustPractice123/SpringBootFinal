@@ -13,12 +13,23 @@
                         <input type="search" class="form-control" placeholder="Search" name="teacher_name">
                         <button class="btn btn-dark">Search</button>
                     </div>
-                    <div class="row col-12 mt-2 mx-auto">
-                        <select name="level" class="form-control">
-                            <option selected value="Jun">Начальный</option>
-                            <option value="Medium">Средний</option>
-                            <option value="Hard">Продвинутый</option>
-                        </select>
+                    <div class="row col-12" style="margin-left: 2px">
+                        <div class="col-6 mt-2 mx-auto">
+                            <select name="level" class="form-control">
+                                <option selected value="Jun">Начальный</option>
+                                <option value="Medium">Средний</option>
+                                <option value="Hard">Продвинутый</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mt-2 mx-auto">
+                            <select name="subject" class="form-control">
+                                <option selected value="Math">Математика</option>
+                                <option value="Physics">Физика</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-2" style="margin-left: 2px">
+                        <a class="btn btn-dark" th:href="@{'/searchteacher'}">Показать всех</a>
                     </div>
                 </form>
             </div>
@@ -30,15 +41,14 @@
                     box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24); margin-left: 1px">
                         <div class="col-2" style="margin-top: 5px">
                             <img th:if="${teacher.picture==null}" th:src="@{'/defaultUser.png'}" height="100px">
-                            <img th:if="${teacher.picture!=null}" th:src="@{'/UsersAvatars/'+${teacher.picture}+'.jpg'}"
-                                 height="100px">
+                            <img th:if="${teacher.picture!=null}" th:src="@{'/UsersAvatars/'+${teacher.picture}+'.jpg'}" height="100px">
                         </div>
                         <div class="col-8">
                             <p th:text="'Имя: '+${teacher.fullName}"></p>
-                            <p th:text="'Возраст: '+${teacher.age}"></p>
+                            <p th:text="'Предмет: '+${teacher.subject.name}"></p>
                             <p th:text="'Уровень: '+${teacher.userLevel.lvl}"></p>
                         </div>
-                        <div class="col-2 mt-4">
+                        <div class="col-2" style="margin-top: 41px">
                             <a class="btn btn-dark" th:href="@{'/profile/'+${teacher.id}}">Профиль</a>
                         </div>
                     </div>

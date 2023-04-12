@@ -98,16 +98,16 @@ public class UserService implements UserDetailsService {
         students.remove(user);
         return students;
     }
-    public List<User> getTeachersByLevelAndFullName(String level, String fullName){
+    public List<User> getTeachersByLevelAndFullName(String level, String fullName, String subject){
         Long role=2L;
-        List<User> teachers=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_id(level, fullName, role);
+        List<User> teachers=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_idAndSubject_Name(level, fullName, role, subject);
         User user=userRep.findUserByRole_id(1l);
         teachers.remove(user);
         return teachers;
     }
-    public List<User> getStudentsByLevelAndFullName(String level, String fullName){
+    public List<User> getStudentsByLevelAndFullName(String level, String fullName, String subject){
         Long role=3L;
-        List<User> students=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_id(level,fullName,role);
+        List<User> students=userRep.findAllByUserLevel_LvlAndFullNameContainingAndRole_idAndSubject_Name(level,fullName,role,subject);
         User user=userRep.findUserByRole_id(1l);
         students.remove(user);
         return students;

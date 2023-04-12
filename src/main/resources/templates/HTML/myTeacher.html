@@ -11,8 +11,24 @@
                 <p>У вас нету активных Учеников. Найти Учеников <label><a th:href="@{'/sstudents'}">тут</a></label></p>
             </div>
             <div th:each="t: ${teachers}">
-                <p th:text="${t.fullName}"></p>
-                <a th:href="@{'/chat/'+${t.id}}">Написать сообщение</a>
+                <div class="row col-12" style="background-color: #afacb4; border-radius: 5px;
+                    -webkit-box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24);
+                    -moz-box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24);
+                    box-shadow: 4px 4px 8px 8px rgba(34, 60, 80, 0.24)" height="140px">
+                    <div class="col-2 mt-3">
+                        <img th:if="${t.picture!=null}" th:src="@{'/UsersAvatars/'+${t.picture}+'.jpg'}" height="140px">
+                        <img th:if="${t.picture==null}" th:src="@{'/defaultUser.png'}" height="140px">
+                    </div>
+                    <div class="col-8">
+                        <p class="mt-4" th:text="'ФИО: '+${t.fullName}"></p>
+                        <p class="mt-2" th:text="'Предмет: '+${t.subject.name}"></p>
+                        <p class="mt-2" th:text="'Уровень: '+${t.userLevel.lvl}"></p>
+                    </div>
+                    <div class="col-2" style="margin-bottom: 20px">
+                        <a class="btn btn-dark" style="width: 150px; height: 60px;text-decoration: none; margin-top: 30px" th:href="@{'/chat/'+${t.id}}">Написать сообщение</a>
+                        <a class="btn btn-dark mt-1" style="width: 150px; height: 60px;text-decoration: none" th:href="@{'/profile/'+${t.id}}">Профиль</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

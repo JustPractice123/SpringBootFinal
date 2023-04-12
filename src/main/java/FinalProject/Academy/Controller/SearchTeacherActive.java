@@ -19,8 +19,9 @@ public class SearchTeacherActive {
     @GetMapping(value = "/steacher")
     public String search(@RequestParam(name = "teacher_name") String name,
                          @RequestParam(name = "level") String level,
+                         @RequestParam(name = "subject") String subject,
                          Model model){
-        List<User> teachers=userService.getTeachersByLevelAndFullName(level,name);
+        List<User> teachers=userService.getTeachersByLevelAndFullName(level,name,subject);
         model.addAttribute("teachers", teachers);
         return "/HTML/searchteacher";
     }

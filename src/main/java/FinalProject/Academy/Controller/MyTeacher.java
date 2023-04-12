@@ -24,7 +24,7 @@ public class MyTeacher {
         List<User> teachers=new ArrayList<>();
         for(User u:users){
             for(Children c:u.getChildren()){
-                if (c.getUser().getId()==user.getId()){
+                if (c.getUser().getId()==user.getId() && c.isStatus()){
                     teachers.add(u);
                 }
             }
