@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="/Layout/MainLayout.html">
+<title layout:fragment="title">Change Role</title>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="col-8 mx-auto">
+                <div th:each="t:${teachers}">
+                    <form method="post" th:action="@{'/changeSubjectAndLvlForTeacher'}">
+                        <div class="row col-5">
+                            <input type="hidden" name="userid" th:value="${t.id}">
+                            <div class="col-6">
+                                <input type="text" class="form-control mt-1" disabled th:value="${t.fullName}">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control mt-1" disabled th:value="${t.email}">
+                            </div>
+                        </div>
+                        <div class="row col-5">
+                            <div class="col-6">
+                                <select class="form-select mt-1" name="subject">
+                                    <option th:selected="${t.subject.id==2}" value="2">Физика</option>
+                                    <option th:selected="${t.subject.id==1}" value="1">Математика</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select mt-1" name="level">
+                                    <option th:selected="${t.userLevel.id==1}" value="1">Jun</option>
+                                    <option th:selected="${t.userLevel.id==2}" value="2">Medium</option>
+                                    <option th:selected="${t.userLevel.id==3}" value="3">Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <button class="btn btn-dark mt-2">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
